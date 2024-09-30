@@ -38,6 +38,9 @@ This research addresses the following question: How can artificial intelligence 
 
 Recent advancements in distributed systems monitoring have increasingly leveraged machine learning (ML) techniques to enhance system observability and automate the detection and diagnosis of performance issues. Traditional monitoring methods, which rely on predefined rules and manual analysis, struggle to keep up with the complexity and scale of modern distributed systems, especially microservices architectures [reference needed]. ML-based approaches, in contrast, offer scalable, data-driven solutions to these challenges, addressing anomaly detection, failure prediction, and root cause analysis (RCA) [reference needed].
 
+Anomaly detection is a key application of ML in distributed systems. For instance, \cite{du2017deeplog} introduced DeepLog, an LSTM-based model that learns normal log patterns and detects deviations as anomalies. This approach improved accuracy over rule-based methods but was limited to logs, overlooking metrics and trace data, which are critical for a holistic view of system health.
+
+
 
 \subsection{Gaps in Current Approaches}
 [Identify the shortcomings that this research aims to address]
@@ -109,5 +112,15 @@ This research demonstrates the potential of AI to significantly enhance observab
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
+
+@inproceedings{du2017deeplog,
+  title={Deeplog: Anomaly detection and diagnosis from system logs through deep learning},
+  author={Du, Min and Li, Feifei and Zheng, Guineng and Srikumar, Vivek},
+  booktitle={Proceedings of the 2017 ACM SIGSAC conference on computer and communications security},
+  pages={1285--1298},
+  year={2017}
+}
+
+
 
 \end{document}
