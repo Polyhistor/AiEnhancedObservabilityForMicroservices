@@ -5,6 +5,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{hyperref}
+% \usepackage{natbib}
 
 \begin{document}
 
@@ -55,6 +56,133 @@ Zhao et al. (2023) explored proactive failure detection in microservice systems 
 
 \subsubsection{Root Cause Analysis (RCA)}
 
+
+
+
+\section{Research Methodology}
+
+This research follows the Design Science Research Methodology (DSRM) framework proposed by \cite{peffers2007design}, which provides a systematic approach for conducting design science research in information systems. The DSRM consists of six sequential steps that guide the research process from problem identification to communication of results.
+
+\subsection{Problem Identification and Motivation}
+
+The increasing complexity of microservices architectures presents significant challenges for traditional observability approaches \cite{berndt2002catch}. Current monitoring and troubleshooting methods struggle with:
+
+\begin{itemize}
+    \item Complex service dependencies and interactions
+    \item Large volumes of heterogeneous telemetry data
+    \item Dynamic nature of microservices deployments
+    \item Challenge of rapid root cause analysis in distributed systems
+\end{itemize}
+
+These challenges are particularly acute given that microservices architectures have gained widespread adoption for their flexibility and scalability \cite{zhang2023automatic}. The value of enhanced observability is critical for maintaining reliable microservices-based systems, as emphasized by recent research in anomaly detection and failure prediction \cite{nobre2023investigation}.
+
+\subsection{Objectives of the Solution}
+
+Following \cite{peffers2007design}'s framework, we define quantifiable objectives for our AI-enhanced observability platform:
+
+\begin{enumerate}
+    \item Improve service dependency mapping accuracy through Graph Neural Networks
+    \item Enable proactive anomaly detection using advanced ML techniques
+    \item Accelerate root cause analysis through automated inference
+    \item Provide predictive performance insights using time-series analysis
+    \item Integrate multiple data sources (logs, metrics, traces) into a unified analysis framework
+\end{enumerate}
+
+These objectives are aligned with recent advancements in ML-based distributed systems monitoring \cite{kohyarnejadfard2022innovative} and address current gaps in observability solutions.
+
+\subsection{Design and Development}
+
+The system architecture consists of three primary components:
+
+\subsubsection{Data Collection Module}
+\begin{itemize}
+    \item Integration with OpenTelemetry for standardized telemetry collection
+    \item Implementation of a Kafka-based streaming pipeline for real-time data processing
+    \item Standardized collection of logs, metrics, and traces
+\end{itemize}
+
+\subsubsection{AI-Powered Analysis Engine}
+\begin{itemize}
+    \item Graph Neural Networks for service dependency mapping
+    \item LSTM networks for anomaly detection and prediction
+    \item Natural Language Processing for log analysis
+\end{itemize}
+
+\subsubsection{Intelligent Alerting and Visualization Module}
+\begin{itemize}
+    \item Real-time interactive dashboards
+    \item Context-aware alerting system
+    \item Dynamic dependency visualization
+\end{itemize}
+
+The development process follows an iterative approach as recommended by \cite{hevner2004design}, incorporating continuous feedback and refinement.
+
+\subsection{Demonstration}
+
+The demonstration phase will be conducted in a production-like environment using a microservices-based e-commerce application. Following \cite{nunamaker1990systems}'s guidelines for systems development research, we will:
+
+\begin{enumerate}
+    \item Deploy the platform in a controlled environment
+    \item Test under various operational scenarios:
+    \begin{itemize}
+        \item Normal operations baseline
+        \item Induced failure conditions
+        \item Scaling events and system stress tests
+    \end{itemize}
+    \item Collect comprehensive telemetry data for analysis
+\end{enumerate}
+
+\subsection{Evaluation}
+
+The evaluation framework combines quantitative metrics and qualitative assessment:
+
+\subsubsection{Quantitative Metrics}
+\begin{itemize}
+    \item Observability comprehensiveness score
+    \item Dependency mapping accuracy (precision/recall)
+    \item Anomaly detection performance (F1-score)
+    \item Prediction accuracy metrics
+    \item Mean Time To Resolution (MTTR) improvement
+\end{itemize}
+
+\subsubsection{Qualitative Assessment}
+\begin{itemize}
+    \item DevOps team feedback through structured interviews
+    \item System administrator experience evaluation
+    \item Usability assessment using standardized frameworks
+\end{itemize}
+
+This multi-faceted evaluation approach aligns with \cite{walls1992building}'s recommendations for information systems design theory validation.
+
+\subsection{Communication}
+
+Research outputs will be disseminated through:
+
+\begin{itemize}
+    \item Academic publications in relevant journals and conferences
+    \item Technical documentation and implementation guidelines
+    \item Architectural blueprints and best practices
+    \item Open-source code repositories and documentation
+\end{itemize}
+
+The communication strategy targets multiple stakeholders including researchers, practitioners, and system architects, following \cite{hevner2004design}'s guidelines for effective research communication.
+
+\subsection{Research Entry Point}
+
+This research takes a problem-centered approach as defined by \cite{peffers2007design}, initiating from the identification of observability challenges in microservices architectures. This entry point is appropriate given the clear practical problems faced in industry and the gaps identified in current research literature.
+
+\section{Expected Contributions}
+
+The research aims to deliver the following contributions:
+
+\begin{enumerate}
+    \item A novel AI-enhanced observability platform for microservices
+    \item Design principles for integrating AI techniques into observability systems
+    \item An evaluation framework for AI-based observability solutions
+    \item Empirical insights into microservices monitoring challenges
+\end{enumerate}
+
+These contributions will advance both the theoretical understanding of AI-enhanced observability and provide practical solutions for industry implementation.
 
 
 \subsection{Gaps in Current Approaches}
