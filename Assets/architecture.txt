@@ -1,0 +1,72 @@
+@startuml
+!define ARCHIMATE_LAYERCOLOR_BUSINESS #FFFF99
+!define ARCHIMATE_LAYERCOLOR_APPLICATION #99FF99
+!define ARCHIMATE_LAYERCOLOR_TECHNOLOGY #9999FF
+!define ARCHIMATE_LAYERCOLOR_MOTIVATION #FF99FF
+
+' Business Layer
+rectangle "Business Layer" as BL <<Business>> #FFFF99 {
+    rectangle "Researcher" as R <<BusinessActor>>
+    rectangle "Research Project" as RP <<BusinessFunction>>
+    rectangle "Literature Review" as LR <<BusinessProcess>>
+    rectangle "Document Management" as DM <<BusinessProcess>>
+}
+
+' Application Layer
+rectangle "Application Layer" as AL <<Application>> #99FF99 {
+    rectangle "API Gateway" as AG <<ApplicationComponent>>
+    rectangle "Auth Service" as AS <<ApplicationComponent>>
+    rectangle "Project Service" as PS <<ApplicationComponent>>
+    rectangle "Document Service" as DS <<ApplicationComponent>>
+    rectangle "Search Service" as SS <<ApplicationComponent>>
+    
+    rectangle "Observability" as OB <<ApplicationComponent>> {
+        rectangle "OpenTelemetry Collector" as OTC <<ApplicationComponent>>
+        rectangle "Prometheus" as PR <<ApplicationComponent>>
+        rectangle "GNN Analysis Service" as GNN <<ApplicationComponent>>
+    }
+}
+
+' Technology Layer
+rectangle "Technology Layer" as TL <<Technology>> #9999FF {
+    rectangle "Docker Containers" as DC <<TechnologyService>>
+    rectangle "Kubernetes" as K8S <<TechnologyService>>
+    rectangle "Document Store" as DST <<TechnologyService>>
+    rectangle "Metrics Store" as MS <<TechnologyService>>
+    rectangle "Message Queue" as MQ <<TechnologyService>>
+}
+
+' Relationships
+R --> RP : performs
+RP --> LR : includes
+RP --> DM : includes
+
+LR --> AG : uses
+DM --> AG : uses
+
+AG --> AS : routes
+AG --> PS : routes
+AG --> DS : routes
+AG --> SS : routes
+
+AS --> OB : monitored by
+PS --> OB : monitored by
+DS --> OB : monitored by
+SS --> OB : monitored by
+
+OTC --> PR : sends metrics
+PR --> GNN : provides data
+GNN --> MS : stores analysis
+
+AG --> DC : deployed on
+AS --> DC : deployed on
+PS --> DC : deployed on
+DS --> DC : deployed on
+SS --> DC : deployed on
+OB --> DC : deployed on
+
+DC --> K8S : managed by
+DST --> K8S : managed by
+MS --> K8S : managed by
+MQ --> K8S : managed by
+@enduml
