@@ -1,72 +1,71 @@
 @startuml
-!define ARCHIMATE_LAYERCOLOR_BUSINESS #FFFF99
-!define ARCHIMATE_LAYERCOLOR_APPLICATION #99FF99
-!define ARCHIMATE_LAYERCOLOR_TECHNOLOGY #9999FF
-!define ARCHIMATE_LAYERCOLOR_MOTIVATION #FF99FF
+!include <archimate/Archimate>
 
 ' Business Layer
-rectangle "Business Layer" as BL <<Business>> #FFFF99 {
-    rectangle "Researcher" as R <<BusinessActor>>
-    rectangle "Research Project" as RP <<BusinessFunction>>
-    rectangle "Literature Review" as LR <<BusinessProcess>>
-    rectangle "Document Management" as DM <<BusinessProcess>>
-}
+Business_Actor(researcher, "Researcher")
+Business_Role(researchLead, "Research Lead")
+Business_Process(literatureReview, "Literature Review Process")
+Business_Process(projectManagement, "Project Management")
+Business_Process(documentManagement, "Document Management")
 
 ' Application Layer
-rectangle "Application Layer" as AL <<Application>> #99FF99 {
-    rectangle "API Gateway" as AG <<ApplicationComponent>>
-    rectangle "Auth Service" as AS <<ApplicationComponent>>
-    rectangle "Project Service" as PS <<ApplicationComponent>>
-    rectangle "Document Service" as DS <<ApplicationComponent>>
-    rectangle "Search Service" as SS <<ApplicationComponent>>
-    
-    rectangle "Observability" as OB <<ApplicationComponent>> {
-        rectangle "OpenTelemetry Collector" as OTC <<ApplicationComponent>>
-        rectangle "Prometheus" as PR <<ApplicationComponent>>
-        rectangle "GNN Analysis Service" as GNN <<ApplicationComponent>>
-    }
-}
+Application_Component(apiGateway, "API Gateway")
+Application_Component(authService, "Auth Service")
+Application_Component(projectService, "Project Service")
+Application_Component(documentService, "Document Service")
+Application_Component(searchService, "Search Service")
+
+' Observability Components
+Application_Component(telemetryCollector, "OpenTelemetry Collector")
+Application_Component(prometheusService, "Prometheus Service")
+Application_Component(gnnAnalyzer, "GNN Analysis Service")
 
 ' Technology Layer
-rectangle "Technology Layer" as TL <<Technology>> #9999FF {
-    rectangle "Docker Containers" as DC <<TechnologyService>>
-    rectangle "Kubernetes" as K8S <<TechnologyService>>
-    rectangle "Document Store" as DST <<TechnologyService>>
-    rectangle "Metrics Store" as MS <<TechnologyService>>
-    rectangle "Message Queue" as MQ <<TechnologyService>>
-}
+Technology_Service(containerRuntime, "Container Runtime")
+Technology_Service(kubernetes, "Kubernetes Platform")
+Technology_System(database, "Document Store")
+Technology_System(metricsStore, "Metrics Store")
+Technology_Service(messageQueue, "Message Queue")
 
-' Relationships
-R --> RP : performs
-RP --> LR : includes
-RP --> DM : includes
+' Business Layer Relationships
+Rel_Assignment(researcher, researchLead)
+Rel_Triggering(researchLead, literatureReview)
+Rel_Triggering(literatureReview, projectManagement)
+Rel_Triggering(projectManagement, documentManagement)
 
-LR --> AG : uses
-DM --> AG : uses
+' Application Layer Relationships
+Rel_Serving(apiGateway, literatureReview)
+Rel_Serving(apiGateway, projectManagement)
+Rel_Serving(apiGateway, documentManagement)
 
-AG --> AS : routes
-AG --> PS : routes
-AG --> DS : routes
-AG --> SS : routes
+Rel_Flow(apiGateway, authService)
+Rel_Flow(apiGateway, projectService)
+Rel_Flow(apiGateway, documentService)
+Rel_Flow(apiGateway, searchService)
 
-AS --> OB : monitored by
-PS --> OB : monitored by
-DS --> OB : monitored by
-SS --> OB : monitored by
+' Observability Relationships
+Rel_Flow(authService, telemetryCollector)
+Rel_Flow(projectService, telemetryCollector)
+Rel_Flow(documentService, telemetryCollector)
+Rel_Flow(searchService, telemetryCollector)
 
-OTC --> PR : sends metrics
-PR --> GNN : provides data
-GNN --> MS : stores analysis
+Rel_Flow(telemetryCollector, prometheusService)
+Rel_Flow(prometheusService, gnnAnalyzer)
+Rel_Access_w(gnnAnalyzer, metricsStore)
 
-AG --> DC : deployed on
-AS --> DC : deployed on
-PS --> DC : deployed on
-DS --> DC : deployed on
-SS --> DC : deployed on
-OB --> DC : deployed on
+' Technology Layer Relationships
+Rel_Association(kubernetes, containerRuntime)
+Rel_Assignment(containerRuntime, apiGateway)
+Rel_Assignment(containerRuntime, authService)
+Rel_Assignment(containerRuntime, projectService)
+Rel_Assignment(containerRuntime, documentService)
+Rel_Assignment(containerRuntime, searchService)
+Rel_Assignment(containerRuntime, telemetryCollector)
+Rel_Assignment(containerRuntime, prometheusService)
+Rel_Assignment(containerRuntime, gnnAnalyzer)
 
-DC --> K8S : managed by
-DST --> K8S : managed by
-MS --> K8S : managed by
-MQ --> K8S : managed by
+Rel_Access(documentService, database)
+Rel_Access(gnnAnalyzer, metricsStore)
+Rel_Access(messageQueue, apiGateway)
+
 @enduml
